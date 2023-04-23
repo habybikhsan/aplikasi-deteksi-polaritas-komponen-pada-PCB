@@ -65,7 +65,9 @@ class MainWindow(QMainWindow):
             q_image = QImage(self.image.data, width, height, bytesPerLine, QImage.Format_RGB888).rgbSwapped()
 
             # Menampilkan gambar di view
-            self.view1.setPixmap(QPixmap.fromImage(q_image))
+            q_pixmap = QPixmap.fromImage(q_image)
+            q_pixmap = q_pixmap.scaled(780, 520, Qt.KeepAspectRatio)         
+            self.view1.setPixmap(q_pixmap)
     
     def reset_image(self):
         # Menghapus gambar dari view

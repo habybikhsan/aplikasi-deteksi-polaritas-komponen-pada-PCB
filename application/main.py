@@ -41,13 +41,14 @@ class MainWindow(QMainWindow):
 
     def scroll(self, widget, width, height):
         # membuat tampilan scrollable untuk label gambar
+        
         scroll = QScrollArea(self)
         scroll.setWidget(widget)
         scroll.setAlignment(Qt.AlignCenter)
         scroll.setWidgetResizable(True)
         scroll.move(width, height)
         scroll.resize(self.width()-4, self.height()-4)
-
+        
         # menambahkan border pada tampilan scrollable
         self.border_color = "black"
         self.border_size = 2

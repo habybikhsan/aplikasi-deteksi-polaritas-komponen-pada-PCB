@@ -80,11 +80,15 @@ class MainWindow(QMainWindow):
         # Mengubah gambar menjadi abu-abu dan menampilkannya di view2
         if self.image is not None:
             self.gray_image = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
-            gray_rgb_image = cv2.cvtColor(self.gray_image, cv2.COLOR_GRAY2RGB)
-            height, width, channel = gray_rgb_image.shape
-            bytes_per_line = 3 * width
-            q_image = QImage(gray_rgb_image.data, width, height, bytes_per_line, QImage.Format_RGB888)
-            self.view2.setPixmap(QPixmap.fromImage(q_image))
+            # Mengonversi gambar ke format yang bisa ditampilkan di Qt
+            height, width, channels = self.gray_image.shape
+            bytesPerLine = channels * width
+            q_image = QImage(self.gray_image.data, width, height, bytesPerLine, QImage.Format_RGB888).rgbSwapped()
+
+            # Menampilkan gambar di view
+            q_pixmap = QPixmap.fromImage(q_image)
+            q_pixmap = q_pixmap.scaled(780, 520, Qt.KeepAspectRatio)         
+            self.view1.setPixmap(q_pixmap)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
